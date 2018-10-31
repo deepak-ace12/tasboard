@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block head %}
+  <title>task</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="col-md-4" align="left">
+    <form method="post">
+      {% csrf_token %}
+      {% include 'includes/form_layout.html' with form=form %}
+      <button type="submit" class="btn btn-success">Submit</button>
+      <a href="{% url 'todo:home' %}"><button type="button" class="btn btn-danger">Cancel</button></a>
+    </form>
+  </div>
+</div>
+{% endblock %}

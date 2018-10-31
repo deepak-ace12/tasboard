@@ -1,0 +1,61 @@
+
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>home</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  {% if user.profile.is_approved %}
+    {% if todos %}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>SR No.</th>
+            <th class="col-md-4">Tasks</th>
+            <th>Assignee</th>
+            <th>Assignor</th>
+            <th>Status</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for todo in todos %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td class="col-md-4">{{ todo.task }}</td>
+                <td>{{ todo.assignee.get_full_name }}</td>
+                <td>{{ todo.assignor.get_full_name }}</td>
+                <td>{{ todo.get_status_display }}</td>
+                <td>
+                  <a href="{% url 'todo:update_task' pk=todo.pk %}">
+                    <i class="glyphicon glyphicon-pencil"></i> 
+                  </a>
+                </td>
+              </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <h4>No task found.</h4>            
+    {% endif %}
+    <a href="{% url 'todo:add_task' %}"><button type="button" class="btn btn-success">Add Task</button></a> 
+    <div class="dropdown pull-right">
+      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+        Task Status 
+      <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="{% url 'todo:home'%}">All</a></li>
+        <li><a href="{% url 'todo:filter' status='D' %}">Done</a></li>
+        <li><a href="{% url 'todo:filter' status='A' %}">Active</a></li>
+        <li><a href="{% url 'todo:filter' status='P' %}">Pending</a></li>
+        <li><a href="{% url 'todo:filter' status='C' %}">Cancelled</a></li>
+      </ul>
+    </div>    
+  {% else %}
+    <h4>
+      You are registered successfully. Your account will be activated shortly.
+    </h4>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+
+{% block head %}
+    <title>register</title>
+{% endblock %}
+{% block body %}
+<div class="container">
+  <div class="col-md-4" align="left">
+    <form method="post">
+      {% csrf_token %}
+      {% include 'includes/form_layout.html' with form=form %}
+      <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  </div>
+</div>
+{% endblock %}

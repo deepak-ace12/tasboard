@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %}
+  <title>pending</title>
+{% endblock %}
+{% block body %}
+<div class="container">
+  {% if not pending_requests %}
+    <h3>No Pending Requests</h3>
+  {% else %}
+  <h3>Please approve the following pending requests</h1><br>  
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>SR No.</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for request in pending_requests %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ request.user.first_name }}</td>
+            <td>{{ request.user.last_name }}</td>
+            <td>{{ request.user.email }}</td>
+            <td><a href="{% url 'todo:approve_request' pk=request.user.pk %}">Approve</a></td>
+          </tr>
+          {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+  <div class="col-md-4" align="left">
+    <h1>Welcome</h1>
+    <p>
+      Add your login credentials below :
+    </p><br>
+    <form method="post">
+      {% csrf_token %}
+      {% include 'includes/form_layout.html' with form=form %}
+      <button type="submit" class="btn btn-primary">Log In</button>
+    </form>   
+  </div>         
+</div>
+{% endblock %}
